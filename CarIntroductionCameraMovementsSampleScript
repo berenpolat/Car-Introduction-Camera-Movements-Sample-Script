@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+
+namespace DefaultNamespace
+{
+    public class GameManager : MonoBehaviour
+    {
+        public BlueCar blueCar;
+        public BlackCar blackCar;
+        public Van van;
+        public Truck truck;
+        public Bus bus;
+        
+        private int counter = 0;
+
+        [SerializeField] private Camera _camera;
+    
+        private float _duration = 1f;
+        public List<Vector3> positions = new List<Vector3>();
+        private void Start()
+        {
+            
+            
+            blueCar.enabled = false;
+            blackCar.enabled = false;
+            van.enabled = false;
+            truck.enabled = false;
+            bus.enabled = false;
+            positions.Add(new Vector3(-3.35f, 3.19f, 42.65f));
+            positions.Add(new Vector3(-3.35F, 3.19F, 37));
+            positions.Add(new Vector3(-3.35F, 3.19F, 31.34F));
+            positions.Add(new Vector3(-3.35f, 3.19f, 23.5f));
+            positions.Add(new Vector3(-3.35f, 3.19f, 15.85f));
+
+            _camera.transform.DOMove(positions[0], _duration);
+
+        }
+
+        private void Update()
+        {
+        
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                counter++;
+                if (counter >= positions.Count)
+                {
+                    counter = 0;
+                }
+                _camera.transform.DOMove(positions[counter], _duration);
+            }
+            
+            
+        }
+    }
+}
